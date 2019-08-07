@@ -1,0 +1,55 @@
+{% include "top.html" %}
+<!-- Below HTML is page dependent. Do not edit anything above it -->
+<div id="view-all-clients">
+    <table class="table table-hover" id="all-clients-table" style="width: initial !important;">
+        <thead>
+		<tr>
+            <th>S No.</th>
+			<th>Client Id</th>
+            <th>Check IP</th>
+            <th>Client Name</th>
+            <th>Client Preferences</th>
+            <th>Client GroupID</th>
+        </tr>
+		</thead>
+		<tbody id="clients-row">
+		<tbody>
+    </table>
+</div>
+
+<script>
+var client = [];
+$.ajax({
+        url: '/api/clients/?format=json',
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+			var i=0;
+			var table = document.getElementById("all-clients-table");
+			$.each( data, function( key, val ) {
+				var row = table.insertRow();
+				var sno = row.insertCell(0);
+                var clientId = row.insertCell(1);
+                var clientIP = row.insertCell(2);
+                var clientName = row.insertCell(3);
+				var clientPrefs = row.insertCell(4);
+                var clientGroupID = row.insertCell(5);
+
+                sno.innerHTML = ++i;
+				clientId.innerHTML = val['clientId'];
+                clientIP.innerHTML = val['clientIP'];
+                clientName.innerHTML = val['clientName'];
+				clientPrefs.innerHTML = val['clientPrefs'];
+                clientGroupID.innerHTML = val['clientGroupID'];
+				
+			});	
+			},
+		
+		error: function (msg) {
+			
+			alert(msg.responseText);
+		}
+        });
+</script>
+<!-- Above HTML is page dependent. Do not edit anything below it -->
+{% include "bottom.html" %}

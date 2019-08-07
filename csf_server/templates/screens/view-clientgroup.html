@@ -1,0 +1,52 @@
+{% include "top.html" %}
+<!-- Below HTML is page dependent. Do not edit anything above it -->
+<div id="view-all-clientgroups">
+    <table class="table table-hover" id="all-clientgroups-table" style="width: initial !important;">
+        <thead>
+		<tr>
+            <th>S No.</th>
+			<th>Clients Group Id</th>
+            <th>Clients Group Name</th>
+            <th>Clients Group Prefs</th>
+        </tr>
+		</thead>
+		<tbody id="clientgroups-row">
+		<tbody>
+    </table>
+</div>
+
+
+<script>
+var client = [];
+$.ajax({
+        url: '/api/clientgroups/?format=json',
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+			var i=0;
+			var table = document.getElementById("all-clientgroups-table");
+			$.each( data, function( key, val ) {
+				var row = table.insertRow();
+				var sno = row.insertCell(0);
+                var groupID = row.insertCell(1);
+                var groupName = row.insertCell(2);
+                var groupPrefs = row.insertCell(3);
+
+
+                sno.innerHTML = ++i;
+				groupID.innerHTML = val['groupID'];
+                groupName.innerHTML = val['groupName'];
+                groupPrefs.innerHTML = val['groupPrefs'];
+				
+			});	
+			},
+		
+		error: function (msg) {
+			
+			alert(msg.responseText);
+		}
+        });
+</script>
+
+<!-- Above HTML is page dependent. Do not edit anything below it -->
+{% include "bottom.html" %}

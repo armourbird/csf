@@ -1,0 +1,68 @@
+{% include "top.html" %}
+<!-- Below HTML is screen dependent. Do not edit anything above it -->
+
+<div id="view-issue"> 
+<table>
+  <tr>
+    <th>issueId:</th>
+    <td id="issueId"></td>
+  </tr>
+  <tr>
+    <th>checkId:</th>
+    <td id="checkId"></td>
+  </tr>
+  <tr>
+    <th>checkDesc:</th>
+    <td id="checkDesc"></td>
+  </tr>
+    <tr>
+    <th>severity:</th>
+    <td id="severity"></td>
+  </tr>
+  <tr>
+    <th>clientIP:</th>
+    <td id="clientIP"></td>
+  </tr>
+  <tr>
+    <th>creationDate:</th>
+    <td id="creationDate"></td>
+  </tr>
+    <tr>
+    <th>checkComment:</th>
+    <td id="checkComment"></td>
+  </tr>
+</table>
+</div>
+
+<script>
+var client = [];
+$.ajax({
+        url: '/api/clients/?format=json',
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+			$.each( data, function( key, val ) {
+				client[val['clientId']] = val['clientIP'];
+			}
+			);
+          }
+        });
+
+var issue_id = window.location.href.match(/([^\/]*)\/*$/)[1];
+$.ajax({
+        url: '/api/issues/'+issue_id+'?format=json',
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+			document.getElementById("issueId").innerHTML = data['issueId'];
+			document.getElementById("checkId").innerHTML = data['checkId'];
+			document.getElementById("checkDesc").innerHTML = data['checkDesc'];
+			document.getElementById("severity").innerHTML = data['severity'];
+			document.getElementById("clientIP").innerHTML = String(client[data['issueClientId']]);
+			document.getElementById("creationDate").innerHTML = data['creationDate'];
+			document.getElementById("checkComment").innerHTML = data['checkComment']; 
+          }
+        });
+</script>
+<!-- Above HTML is screen dependent. Do not edit anything below it -->
+{% include "bottom.html" %}

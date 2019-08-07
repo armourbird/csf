@@ -1,0 +1,69 @@
+{% include "top.html" %}
+<!-- Below HTML is page dependent. Do not edit anything above it -->
+
+<div id="view-all-issues">
+    <table class="table table-hover" id="all-issues-table" style="width: initial !important;">
+        <thead>
+		<tr>
+            <th>S No.</th>
+			<th>Client IP</th>
+            <th>Check ID</th>
+            <th>Description</th>
+            <th>Severity</th>
+            <th>Fix Status</th>
+        </tr>
+		</thead>
+		<tbody id="issues-row">
+		<tbody>
+    </table>
+</div>
+<script>
+var client = [];
+$.ajax({
+        url: '/api/clients/?format=json',
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+			$.each( data, function( key, val ) {
+				client[val['clientId']] = val['clientIP'];
+			}
+			);
+          }
+        });
+
+$.ajax({
+        url: '/api/issues/?format=json',
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+			var i=0;
+			var table = document.getElementById("all-issues-table");
+			$.each( data, function( key, val ) {
+				var row = table.insertRow();
+				var sno = row.insertCell(0);
+                var clientIP = row.insertCell(1);
+                var checkId = row.insertCell(2);
+                var checkDesc = row.insertCell(3);
+				var severity = row.insertCell(4);
+                var fixStatus = row.insertCell(5);
+
+                sno.innerHTML = ++i;
+				clientIP.innerHTML = "<a href='/view-issue/"+String(val['issueId'])+"'>"+String(client[val['issueClientId']])+"</a>";
+                checkId.innerHTML = val['checkId'];
+                checkDesc.innerHTML = val['checkDesc'];
+				severity.innerHTML = val['severity'];
+                fixStatus.innerHTML = val['fixStatus'];
+				
+			});	
+			},
+		
+		error: function (msg) {
+			
+			alert(msg.responseText);
+		}
+          
+        });
+
+</script>
+<!-- Above HTML is page dependent. Do not edit anything below it -->
+{% include "bottom.html" %}

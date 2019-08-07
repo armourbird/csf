@@ -1,0 +1,81 @@
+{% include "top.html" %}
+<!-- Below HTML is page dependent. Do not edit anything above it -->
+
+  <article>
+        <div class="main-dashboard">
+          <div id="ct-chart1" style="text-align: center; float: right"></div>
+          <div id="ct-chart2" style="text-align: center; float: left"></div>
+        </div>
+  </article>
+
+    <script>
+        var high_count = 0, med_count = 0, low_count = 0, info_count = 0;
+        var fix_count = 0, notfix_count = 0, inprog_count = 0;
+
+        $.ajax({
+        url: '/api/issues/?format=json',
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+            $.each( data, function( key, val ) {
+              if (val['severity'] != "I") {
+                  if(val['fixStatus'] == "F"){
+                      fix_count = fix_count + 1;
+                  }
+                  else if(val['fixStatus'] == "N"){
+                      notfix_count = notfix_count + 1;
+                  }
+                  else if (val['fixStatus'] == "I"){
+                      inprog_count = inprog_count + 1;
+                  }
+            }
+
+              if(val['severity'] == "H"){
+                  high_count = high_count + 1;
+              }
+              else if(val['severity'] == "M"){
+                  med_count = med_count + 1;
+              }
+              else if (val['severity'] == "L"){
+                  low_count = low_count + 1;
+              }
+              else if (val['severity'] == "I"){
+                  info_count = info_count + 1;
+              }
+           });
+          }
+        });
+
+        var severitydata = {
+          // A labels array that can contain any sort of values
+          labels: ['High', 'Medium', 'Low'],
+          // Our series array that contains series objects or in this case series data arrays
+          series: [ high_count, med_count, low_count]
+        };
+
+        var options = {
+          width: 500,
+          height: 375,
+          chartPadding: 30,
+          distributeSeries: true,
+          axisY: {onlyInteger: true}
+        };
+
+        new Chartist.Bar('#ct-chart1', severitydata, options);
+
+        // Drawing a pie chart with padding and labels that are outside the pie
+        new Chartist.Pie('#ct-chart2', {
+          labels: ['Not-Fixed', 'In-Progress', 'Fixed'],
+          series: [notfix_count, inprog_count, fix_count]
+        }, {
+          chartPadding: 30,
+          width: 400,
+          height: 400,
+          labelOffset: 50,
+          labelDirection: 'explode'
+        });
+
+    </script>
+
+<!-- Above HTML is page dependent. Do not edit anything below it -->
+{% include "bottom.html" %}

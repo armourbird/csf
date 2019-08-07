@@ -113,7 +113,7 @@ Make sure to update CSF_CDN environment variable in the above command with the C
 **CSF server** can run as a docker container or natively on a web server on which various CSF clients will be sending data. You can run it on your server using the following command using the docker image hosted on hub.docker.com
 
 ```
-docker run -p 443:8000 -d armourbird/csf_server
+docker run -p 80:8000 -d armourbird/csf_server
 ```
 
 Browse the CSF server via the following links

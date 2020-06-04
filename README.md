@@ -1,4 +1,5 @@
-# ArmourBird CSF - Container Security Framework [![Follow ArmourBird on Twitter](https://img.shields.io/twitter/follow/armourbird.svg?style=social&label=Follow%20%40armourbird)](https://twitter.com/intent/user?screen_name=armourbird "Follow ArmourBird on Twitter")
+# ArmourBird CSF - Container Security Framework 
+[![Follow ArmourBird on Twitter](https://img.shields.io/twitter/follow/armourbird.svg?style=social&label=Follow%20%40armourbird)](https://twitter.com/intent/user?screen_name=armourbird "Follow ArmourBird on Twitter")  [![BlackHat USA Arsenal 2019](https://github.com/r3ver53r/staticfiles/blob/master/images/bh-usa-2019.svg)](https://www.blackhat.com/us-19/arsenal/schedule/index.html#csf-container-security-framework-17001)
 
 ## Table of Contents
 <!--ts-->
@@ -36,7 +37,7 @@ b) **CSF Server**
 **Important Note**: The tool is currently in beta mode. Hence the debug flag of django (CSF Server) is enabled and the SQLite is used as DB in the same docker container. Hence, spinning up a new docker container will reset the database.
 
 ## Architecture Diagram
-![ ArmourBird CSF Architecture Diagram](https://public.adobecc.com/files/1AANSG3RSNQAEE5BO2IENIJKAXFFFF)
+![ ArmourBird CSF Architecture Diagram](https://github.com/r3ver53r/staticfiles/blob/master/images/csf_arch.jpeg)
 
 ## APIs CSF Server
 
@@ -139,7 +140,7 @@ docker build . -t csf_server
 
 ## Sneak Peak
 **Dashboard**
-<img src="https://public.adobecc.com/files/1AE4TWJJN2VZWGHNMP21FDFYSXIFFF" width="100%">
+<img src="https://github.com/r3ver53r/staticfiles/blob/master/images/csf_dashboard.png" width="100%">
 
 **API View**
 <img src="https://public.adobecc.com/files/1AAXTW0OBT05YB4DKYFG0ATW1ZKFFF" width="100%">

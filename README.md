@@ -1,6 +1,10 @@
 # ArmourBird CSF - Container Security Framework 
 [![Follow ArmourBird on Twitter](https://img.shields.io/twitter/follow/armourbird.svg?style=social&label=Follow%20%40armourbird)](https://twitter.com/intent/user?screen_name=armourbird "Follow ArmourBird on Twitter")  [![BlackHat USA Arsenal 2019](https://github.com/r3ver53r/staticfiles/blob/master/images/bh-usa-2019.svg)](https://www.blackhat.com/us-19/arsenal/schedule/index.html#csf-container-security-framework-17001)
 
+
+**Note:** The CSF Client is under active development and is getting converted into GoLang for better performace and architecture
+
+
 ## Table of Contents
 <!--ts-->
  1. [About](#about)
